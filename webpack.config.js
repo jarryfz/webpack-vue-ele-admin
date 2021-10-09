@@ -1,5 +1,5 @@
 const path = require('path')
-// const isProductionMode = process.env.NODE_ENV === 'production'
+const isProductionMode = process.env.NODE_ENV === 'production'
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 // 提取css为单独文件
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -11,7 +11,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: '[name].[contenthash].js',
+    filename: isProductionMode ? '[name].[contenthash].js' : '[name].js',
     path: path.resolve(__dirname, 'dist'),
     clean: true
   },
@@ -36,7 +36,7 @@ module.exports = {
         test: /\.css$/,
         use: [
           // 'style-loader', // 创建style标签，将js中的样式资源插入，添加到head中生效
-          MiniCssExtractPlugin.loader,
+          isProductionMode ? MiniCssExtractPlugin.loader : 'style-loader',
           'css-loader',
           'postcss-loader'
         ]
@@ -44,7 +44,7 @@ module.exports = {
       {
         test: /\.less$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          isProductionMode ? MiniCssExtractPlugin.loader : 'style-loader',
           'css-loader',
           'postcss-loader',
           'less-loader'
@@ -67,7 +67,7 @@ module.exports = {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
         type: 'asset/resource',
         generator: {
-          filename: 'img/[name].[contenthash:10].[ext]'
+          filename: isProductionMode ? 'img/[name].[contenthash:10].[ext]' : 'img/[name].[hash].[ext]'
         }
       },
       // 处理字体资源
@@ -75,7 +75,7 @@ module.exports = {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         type: 'asset/resource',
         generator: {
-          filename: 'font/[name].[contenthash:10].[ext]'
+          filename: isProductionMode ? 'font/[name].[contenthash:10].[ext]' : 'font/[name].[hash].[ext]'
         }
       }
     ]
@@ -88,12 +88,12 @@ module.exports = {
       template: './public/index.html',
       // html压缩
       minify: {
-        removeComments: true, // 移除HTML中的注释
-        collapseWhitespace: true // 删除空白符与换行符
+        removeComments: !!isProductionMode, // 移除HTML中的注释
+        collapseWhitespace: !!isProductionMode // 删除空白符与换行符
       }
     }),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].[contenthash].css'
+      filename: isProductionMode ? 'css/[name].[contenthash].css' : 'css/[name].css'
     }),
     new ESLintWebpackPlugin({
       fix: true,
