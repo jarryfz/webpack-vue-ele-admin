@@ -14,6 +14,9 @@ export default {
   name: 'Home',
   data() {
     return {}
+  },
+  created() {
+    console.log(process.env)
   }
 }
 </script>
