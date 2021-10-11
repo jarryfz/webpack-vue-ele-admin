@@ -18,6 +18,8 @@ npm run start 启动（webpack-dev-server）
 
 ``` sh
 .
+├── build # webpack相关配置
+├── config # 环境变量配置
 ├── public # 静态资源
 ├── src # 项目代码
 │   ├── assets # 静态资源
@@ -35,5 +37,4 @@ npm run start 启动（webpack-dev-server）
 ├── postcss.config.js # postcss 配置文件
 ├── package.json
 ├── README.md
-├── webpack.config.js # webpack配置文件
 ```
