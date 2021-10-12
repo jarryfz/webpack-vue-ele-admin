@@ -6,8 +6,11 @@ import router from './router'
 import './element/index'
 import './styles/index.less'
 
+import store from './store/index'
+
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

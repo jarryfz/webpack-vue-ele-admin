@@ -23,9 +23,12 @@ npm run start 启动（webpack-dev-server）
 ├── public # 静态资源
 ├── src # 项目代码
 │   ├── assets # 静态资源
+│   ├── cache # 本地存储
 │   ├── components # 公用组件
 │   ├── element  # 按需引入element-ui
+│   ├── layout # 布局
 │   ├── router # 路由配置
+│   ├── store # 状态管理
 │   ├── styles # 全局样式
 │   ├── utils # 全局工具类
 │   ├── views # 路由页面

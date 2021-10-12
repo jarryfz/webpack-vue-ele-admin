@@ -1,22 +1,40 @@
 <template>
   <div>
-    <el-button>默认按钮</el-button>
-    <el-button type="primary">主要按钮</el-button>
-    <el-button type="success">成功按钮</el-button>
-    <el-button type="info">信息按钮</el-button>
-    <el-button type="warning">警告按钮</el-button>
-    <el-button type="danger">危险按钮</el-button>
+    <el-button type="success" @click="addFun">加</el-button>
+    <el-button type="danger" @click="reductionFun">减</el-button>
+    <div>{{doStatus}}</div>
+    <div>{{count}}</div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions, mapState } from 'vuex'
 export default {
   name: 'Home',
   data() {
     return {}
   },
+  computed: {
+    // ...mapGetters需要安装@babel/runtime-corejs3
+    ...mapGetters(["doStatus"]),
+    ...mapState({
+      count: state => state.app.status
+    })
+  },
   created() {
-    console.log(process.env)
+    
+  },
+  methods: {
+    ...mapActions({
+      add: 'addFun',
+      reduction: 'reductionFun'
+    }),
+    addFun() {
+     this.add(2)
+    },
+    reductionFun() {
+      this.reduction(1)
+    }
   }
 }
 </script>
