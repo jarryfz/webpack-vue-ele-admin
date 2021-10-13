@@ -6,6 +6,8 @@ import router from './router'
 import './element/index'
 import './styles/index.less'
 
+import './permision'
+
 import store from './store/index'
 
 new Vue({

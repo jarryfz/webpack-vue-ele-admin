@@ -6,9 +6,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // 导入配置文件
 // const config = require('../config/index')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const isProd = process.argv[2] !== 'serve'
 
+const isProd = process.argv[2] !== 'serve'
+console.log(process.argv)
 module.exports = {
   entry: './src/index.js',
   output: {
@@ -94,15 +94,6 @@ module.exports = {
   plugins: [
     // 每次构建清理dist文件夹
     new CleanWebpackPlugin(),
-    new VueLoaderPlugin(),
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../public/index.html'),
-      title: 'webpack-vue-ele-admin',
-      // 压缩html
-      minify: {
-        removeComments: isProd, // 移除html中的注释
-        collapseWhitespace: isProd // 删除空白符和换行符
-      }
-    })
+    new VueLoaderPlugin()
   ]
 }

@@ -1,8 +1,11 @@
+const path = require('path')
 const { merge } = require('webpack-merge')
 // 公共webpack配置
 const common = require('./webpack.common')
 // 导入配置文件
 const config = require('../config/index')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 
 module.exports = merge(common, {
@@ -16,7 +19,26 @@ module.exports = merge(common, {
     // 定义全局变量
     new webpack.DefinePlugin({
       'process.env': config.dev.env
-    })
+    }),
+    new HtmlWebpackPlugin({
+      title: 'webpack-vue-admin',
+      filename: 'index.html',
+      template: './public/index.html'
+    }),
+    // 把public的一些静态文件复制到指定位置，排除html文件
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, '../public'),
+          // to: path.resolve(__dirname, '../dist'),
+          globOptions: {
+            dot: true,
+            gitignore: true,
+            ignore: ['**/*.html']
+          }
+        }
+      ]
+    }),
   ],
   /**
    * 开发服务器devServer：用来自动化（自动编译，自动打开浏览器，自动刷新浏览器）
@@ -25,7 +47,7 @@ module.exports = merge(common, {
   */
   devServer: {
     static: {
-      publicPath: '/'
+      directory: path.join(__dirname, 'public')
     },
     compress: true,
     hot: true,
