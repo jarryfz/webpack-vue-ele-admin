@@ -56,6 +56,7 @@
     "core-js": "^3.18.1",
     "element-ui": "^2.15.6",
     "save-dev": "0.0.1-security",
+    "screenfull": "^5.1.0",
     "svg-sprite-loader": "^6.0.9",
     "vue": "^2.6.14",
     "vuex": "^3.6.2"

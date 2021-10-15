@@ -1,6 +1,7 @@
 import wsCache from '@/cache'
 const app = {
   state: {
+    title: 'webpack-vue-ele-admin',
     status: 0,
     token: wsCache.get('token'),
     isCollapse: false

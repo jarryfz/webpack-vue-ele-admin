@@ -7,10 +7,10 @@
       <el-tooltip
         class="item"
         effect="dark"
-        content="全屏显示"
+        :content="isFullscreen ? '退出全屏' : '全屏显示'"
         placement="bottom"
       >
-        <svg-icon icon-class="full-screen" class-name="full-screen"></svg-icon>
+        <svg-icon :icon-class="isFullscreen ? 'out-full-screen' : 'full-screen'" class-name="full-screen" @svgClick="changeFullScreen"></svg-icon>
       </el-tooltip>
       <el-dropdown placement="bottom">
         <span class="el-dropdown-link">
@@ -27,20 +27,42 @@
 </template>
 
 <script>
+import screenfull from 'screenfull'
 export default {
   name: 'Header',
   data () {
     return {
+      isFullscreen: false,
       fullscreen: require('@/assets/img/fullscreen.png'),
       header: require('@/assets/img/header.png')
     }
   },
   mounted () {
-    
+    this.init()
+  },
+  beforeDestroy () {
+    this.destroy()
   },
   methods: {
-    
-  },
+    init () {
+      if (screenfull.isEnabled) {
+        screenfull.on('change', () => {
+          this.isFullscreen = screenfull.isFullscreen
+        })
+      }
+    },
+    changeFullScreen () {
+      console.log(screenfull)
+      if (!screenfull.isEnabled) {
+        this.$message({
+          message: 'you browser can not work',
+          type: 'warning'
+        })
+        return false
+      }
+      screenfull.toggle()
+    }
+  }
 }
 </script>
 <style lang="less" scoped>
