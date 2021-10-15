@@ -40,6 +40,14 @@ module.exports = {
         },
         exclude: '/node_modules/'
       },
+      {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader',
+        include: [path.resolve(__dirname, '../src/assets/icon')],
+        options: {
+          symbolId: 'icon-[name]'
+        }
+      },
       /**
        * css与less样式文件处理
        * 提取css单独文件 mini-css-extract-plugin插件
@@ -77,6 +85,7 @@ module.exports = {
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
         type: 'asset/resource',
+        exclude: [path.resolve(__dirname, '../src/assets/icon/')],
         generator: {
           filename: isProd ? 'img/[name].[contenthash].[ext]' : 'img/[name].[hash].[ext]'
         }

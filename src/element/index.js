@@ -39,7 +39,10 @@ import {
   Col,
   Upload,
   Loading,
+  Breadcrumb,
+  BreadcrumbItem,
   MessageBox,
+  Scrollbar,
   Message
 } from 'element-ui'
 Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 }
@@ -82,6 +85,9 @@ Vue.use(Row)
 Vue.use(Col)
 Vue.use(Upload)
 Vue.use(Loading)
+Vue.use(Breadcrumb)
+Vue.use(Scrollbar)
+Vue.use(BreadcrumbItem)
 
 Vue.prototype.$message = Message
 Vue.prototype.$msgbox = MessageBox

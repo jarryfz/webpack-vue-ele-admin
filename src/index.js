@@ -7,6 +7,7 @@ import './element/index'
 import './styles/index.less'
 
 import './permision'
+import '@/assets/icon'
 
 import store from './store/index'
 

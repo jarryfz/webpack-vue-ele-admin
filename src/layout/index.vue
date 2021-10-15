@@ -4,29 +4,38 @@
       <Header />
     </div>
     <div class="app-content">
-      <div class="app-aside">aside</div>
-      <div class="app-main">
-        <div class="app-main-header">main-header</div>
+      <div class="app-aside" :class="{'app-aside--collapse': isCollapse}">
+        <Aside />
+      </div>
+      <div class="app-main" :class="{'app-main--collapse': isCollapse}">
+        <div class="app-main-header">
+          <nav-header />
+        </div>
         <div class="app-main-view">
           <router-view></router-view>
         </div>
-        <div class="app-footer">footer</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Header } from './components'
+import { Header, NavHeader, Aside } from './components'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Layout',
   components: {
-    Header
+    Header,
+    NavHeader,
+    Aside
   },
   data() {
     return {
       
     }
+  },
+  computed: {
+    ...mapGetters(['isCollapse'])
   }
 }
 </script>
@@ -43,29 +52,33 @@ export default {
       position: relative;
       height: calc(100% - 80px);
       .app-aside {
-        background-color: #293a4c;
-        color: #fff;
         height: 100%;
-        position: fixed;
+        position: absolute;
         width: 240px;
-        overflow: hidden;
+        transition: all 0.2s;
+      }
+      .app-aside--collapse {
+        width: 64px;
       }
       .app-main {
         background-color: #eee;
         height: 100%;
-        position: relative;
-        margin-left: 240px;
+        width: calc(100% - 240px);
+        position: absolute;
+        left: 240px;
+        transition: all 0.2s;
         &-header {
           height: 80px;
         }
         &-view {
-          height: calc(100% - 120px);
+          height: calc(100% - 80px);
           box-sizing: border-box;
           padding: 20px;
         }
-        .app-footer {
-          height: 40px;
-        }
+      }
+      .app-main--collapse {
+        width: calc(100% - 64px);
+        left: 64px
       }
     }
   }

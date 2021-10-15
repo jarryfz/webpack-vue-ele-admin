@@ -2,7 +2,8 @@ import wsCache from '@/cache'
 const app = {
   state: {
     status: 0,
-    token: wsCache.get('token')
+    token: wsCache.get('token'),
+    isCollapse: false
   },
   getters: {
     doStatus: state => state.status + 1
@@ -17,6 +18,9 @@ const app = {
     SET_TOKEN: (state, token) => {
       state.token = token
       wsCache.set('token', token)
+    },
+    IS_COLLAPSE: (state) => {
+      state.isCollapse = !state.isCollapse
     }
   },
   actions: {
@@ -30,6 +34,16 @@ const app = {
       return new Promise((resolve, reject) => {
         try {
           commit('SET_TOKEN', 'token')
+          resolve()
+        } catch {
+          reject()
+        }
+      })
+    },
+    isCollapseFun ({ commit }) {
+      return new Promise((resolve, reject) => {
+        try {
+          commit('IS_COLLAPSE')
           resolve()
         } catch {
           reject()
