@@ -1,7 +1,7 @@
 <template>
   <div class="app-main-nav">
-    <div class="nav-breadcrumb">
-      <div class="hamburger">
+    <div class="nav-breadcrumb" :class="{'nav-border': layout==='leftTop'}">
+      <div class="hamburger" v-if="layout!=='top'">
         <svg-icon :icon-class="iconClass" class-name="hamburger-img" @svgClick="changeCollapse"></svg-icon>
       </div>
       <el-breadcrumb separator="/">
@@ -9,21 +9,27 @@
         <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <div class="nav-tag-list">2</div>
+    <div v-if="layout === 'leftTop'" class="nav-tag-list">
+      <tagsView />
+    </div>
   </div>
 </template>
 
 <script>
+import tagsView from './tagsView.vue'
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'NavHeaser',
+  components: {
+    tagsView
+  },
   data() {
     return {
       hamburger: require('@/assets/img/hamburger.png')
     }
   },
   computed: {
-    ...mapGetters(['isCollapse']),
+    ...mapGetters(['isCollapse', 'layout']),
     iconClass () {
       return this.isCollapse ? 'open' : 'fold'
     }
@@ -45,12 +51,14 @@ export default {
 
 <style lang="less" scoped>
   .app-main-nav {
+    .nav-border {
+      border-bottom: 1px solid #ccc;
+    }
     .nav-breadcrumb {
       height: 40px;
       display: flex;
       align-items: center;
       padding: 0 15px;
-      border-bottom: 1px solid #ccc;
       .hamburger {
         margin-right: 10px;
       }
@@ -62,8 +70,6 @@ export default {
     }
     .nav-tag-list {
       height: 40px;
-      padding: 0 15px;
-      box-shadow: 0px 2px 8px 0px rgb(135 118 114 / 15%);
     }
   }
 </style>

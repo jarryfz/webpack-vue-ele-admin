@@ -1,7 +1,11 @@
 <template>
   <div class="app-header-box">
     <div class="app-header-box-title">
-      <h1>webpack-vue-admin</h1>
+      <h2 v-if="layout !== 'classic'">webpack-vue-admin</h2>
+      <nav-header v-if="layout === 'classic'" />
+    </div>
+    <div class="app-header-box-nav">
+      <nav-menu v-if="layout === 'top'" />
     </div>
     <div class="app-header-box-user">
       <el-tooltip
@@ -28,8 +32,15 @@
 
 <script>
 import screenfull from 'screenfull'
+import navHeader from './navHeader.vue'
+import navMenu from './navMenu.vue'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Header',
+  components: {
+    navHeader,
+    navMenu
+  },
   data () {
     return {
       isFullscreen: false,
@@ -37,11 +48,13 @@ export default {
       header: require('@/assets/img/header.png')
     }
   },
+  computed: {
+    ...mapGetters(['layout'])
+  },
   mounted () {
     this.init()
   },
   beforeDestroy () {
-    this.destroy()
   },
   methods: {
     init () {
@@ -67,18 +80,31 @@ export default {
 </script>
 <style lang="less" scoped>
   .app-header-box {
-    background: #455eee;
-    color: #fff;
-    display: flex;
+    // background: #455eee;
+    // color: #fff;
     box-sizing: border-box;
+    position: relative;
     align-items: center;
     padding: 0 20px;
     height: 100%;
+    border-bottom: 2px solid #eee;
     &-title {
-      flex: 1;
+      width: 300px;
+      position: absolute;
+      height: 100%;
+      left: 0;
+    }
+    &-nav {
+      position: absolute;
+      height: 60px;
+      width: calc(100% - 520px);
+      left: 300px;
     }
     &-user {
+      position: absolute;
+      right: 0;
       width: 200px;
+      height: 100%;
       display: flex;
       align-items: center;
       .full-screen {
@@ -90,7 +116,7 @@ export default {
     }
   }
   /deep/ .el-dropdown {
-    color: #fff;
+    color: #000;
   }
   /deep/ .el-dropdown-link {
     font-size: 16px;

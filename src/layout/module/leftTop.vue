@@ -1,26 +1,41 @@
 <template>
   <div class="app-wrap">
-    <component :is="layout"></component>
+    <div class="app-header">
+      <Header />
+    </div>
+    <div class="app-content">
+      <div class="app-aside" :class="{'app-aside--collapse': isCollapse}">
+        <Aside />
+      </div>
+      <div class="app-main" :class="{'app-main--collapse': isCollapse}">
+        <div class="app-main-header">
+          <nav-header />
+        </div>
+        <div class="app-main-view">
+          <router-view></router-view>
+        </div>
+      </div>
+    </div>
+    <Setting />
   </div>
 </template>
 
 <script>
-import classic from './module/classic.vue'
-import top from './module/top.vue'
-import leftTop from './module/leftTop.vue'
+import { Header, NavHeader, Aside, Setting } from '../components'
 import { mapGetters } from 'vuex'
 export default {
   name: 'Layout',
   components: {
-    classic,
-    top,
-    leftTop
+    Header,
+    NavHeader,
+    Aside,
+    Setting
   },
   data() {
     return {}
   },
   computed: {
-    ...mapGetters(['layout'])
+    ...mapGetters(['isCollapse'])
   }
 }
 </script>

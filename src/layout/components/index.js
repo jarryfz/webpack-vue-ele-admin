@@ -1,3 +1,7 @@
 export { default as Header } from './header.vue'
 export { default as NavHeader } from './navHeader.vue'
 export { default as Aside } from './aside.vue'
+export { default as Setting } from './setting.vue'
+export { default as Logo } from './logo.vue'
+export { default as TagView } from './tagsView.vue'
+export { default as NavMenu } from './navMenu.vue'

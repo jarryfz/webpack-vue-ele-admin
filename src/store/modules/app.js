@@ -4,7 +4,8 @@ const app = {
     title: 'webpack-vue-ele-admin',
     status: 0,
     token: wsCache.get('token'),
-    isCollapse: false
+    isCollapse: false,
+    layout: 'classic' // 导航栏方式
   },
   getters: {
     doStatus: state => state.status + 1
@@ -22,6 +23,9 @@ const app = {
     },
     IS_COLLAPSE: (state) => {
       state.isCollapse = !state.isCollapse
+    },
+    SET_LAYOUT: (state, value) => {
+      state.layout = value
     }
   },
   actions: {
@@ -41,10 +45,22 @@ const app = {
         }
       })
     },
+    // 左侧导航栏收缩
     isCollapseFun ({ commit }) {
       return new Promise((resolve, reject) => {
         try {
           commit('IS_COLLAPSE')
+          resolve()
+        } catch {
+          reject()
+        }
+      })
+    },
+    // 导航栏方式
+    layout ({ commit }, value) {
+      return new Promise((resolve, reject) => {
+        try {
+          commit('SET_LAYOUT', value)
           resolve()
         } catch {
           reject()

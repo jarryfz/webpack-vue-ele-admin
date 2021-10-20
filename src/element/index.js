@@ -41,6 +41,7 @@ import {
   Loading,
   Breadcrumb,
   BreadcrumbItem,
+  Drawer,
   MessageBox,
   Scrollbar,
   Message
@@ -86,6 +87,7 @@ Vue.use(Col)
 Vue.use(Upload)
 Vue.use(Loading)
 Vue.use(Breadcrumb)
+Vue.use(Drawer)
 Vue.use(Scrollbar)
 Vue.use(BreadcrumbItem)
 
