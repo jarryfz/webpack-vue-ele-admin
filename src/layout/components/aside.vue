@@ -8,7 +8,8 @@
         @close="handleClose"
         :collapse="isCollapse"
       >
-        <el-submenu index="1">
+      <aside-item v-for="route in routers" :key="route.path" :base-path="route.path" :item="route"></aside-item>
+        <!-- <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-location"></i>
             <span slot="title">导航一</span>
@@ -53,30 +54,39 @@
         <el-menu-item index="4">
           <i class="el-icon-setting"></i>
           <span slot="title">导航四</span>
-        </el-menu-item>
+        </el-menu-item> -->
       </el-menu>
     </el-scrollbar>
   </div>
 </template>
 
 <script>
+import AsideItem from './asideItem.vue'
 import { mapGetters } from 'vuex'
+import { constantRouterMap } from '@/router'
 export default {
   name: 'Aside',
+  components: {
+    AsideItem
+  },
   data () {
     return {
-      
-    };
+      routers: constantRouterMap,
+      basepath: null
+    }
+  },
+  mounted() {
+    console.log(this.routers)
   },
   computed: {
     ...mapGetters(['isCollapse'])
   },
   methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+    handleOpen (key, keyPath) {
+      console.log(key, keyPath)
     },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
+    handleClose (key, keyPath) {
+      console.log(key, keyPath)
     }
   }
 }

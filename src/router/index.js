@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Layout from '@/layout'
+import table from './modules/table.js'
 
 Vue.use(VueRouter)
 
-const constantRouterMap = [
+export const constantRouterMap = [
   {
     name: '404',
     path: '/404',
@@ -21,6 +22,10 @@ const constantRouterMap = [
     path: '/',
     component: Layout, // 需要添加 @babel/plugin-syntax-dynamic-import 插件 不然import报错
     redirect: '/dashboard',
+    meta: {
+      title: 'Dashboard',
+      icon: 'dashboard'
+    },
     children: [
       {
         path: '/dashboard',
@@ -32,7 +37,8 @@ const constantRouterMap = [
       }
     ]
   },
-  { path: '*', redirect: '/404', hidden: true }
+  { path: '*', redirect: '/404', hidden: true },
+  table
 ]
 const createRouter = () => new VueRouter({
   routes: constantRouterMap

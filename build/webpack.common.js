@@ -17,6 +17,7 @@ module.exports = {
     clean: true
   },
   resolve: {
+    fallback: { 'path': require.resolve('path-browserify') },
     // 配置省略文件路径后缀名
     extensions: ['.vue', '.js', '.css', '.less'],
     // 配置别名
