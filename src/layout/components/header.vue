@@ -5,7 +5,7 @@
       <nav-header v-if="layout === 'classic'" />
     </div>
     <div class="app-header-box-nav">
-      <nav-menu v-if="layout === 'top'" />
+      <Aside v-if="layout === 'top'" />
     </div>
     <div class="app-header-box-user">
       <el-tooltip
@@ -23,7 +23,9 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>首页</el-dropdown-item>
-          <el-dropdown-item>退出登录</el-dropdown-item>
+          <el-dropdown-item>
+            <span @click="logout">退出登录</span>
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -33,13 +35,15 @@
 <script>
 import screenfull from 'screenfull'
 import navHeader from './navHeader.vue'
-import navMenu from './navMenu.vue'
+import Aside from './aside.vue'
 import { mapGetters } from 'vuex'
+import wsCache from '@/cache'
+import { resetRouter } from '@/router'
 export default {
   name: 'Header',
   components: {
     navHeader,
-    navMenu
+    Aside
   },
   data () {
     return {
@@ -74,6 +78,11 @@ export default {
         return false
       }
       screenfull.toggle()
+    },
+    logout () {
+      wsCache.delete('token')
+      resetRouter()
+      this.$router.replace('/login')
     }
   }
 }

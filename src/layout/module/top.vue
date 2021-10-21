@@ -47,7 +47,7 @@ export default {
       height: 40px;
     }
     .app-main-view {
-      height: calc(100% - 140px);
+      height: calc(100% - 142px);
       padding: 20px;
       box-sizing: border-box;
       background: #eee;

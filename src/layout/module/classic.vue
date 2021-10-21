@@ -55,9 +55,9 @@ export default {
         width: 100%;
         height: calc(100% - 60px);
       }
-      .app-left--collapse {
-        width: 64px;
-      }
+    }
+    .app-left--collapse {
+      width: 64px;
     }
     .app-right {
       position: absolute;

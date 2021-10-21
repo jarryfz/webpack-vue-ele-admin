@@ -6,8 +6,8 @@ const tableRoute = {
   redirect: '/table/base-table',
   name: 'Table',
   meta: {
-    title: 'Table',
-    icon: 'table'
+    title: '表格',
+    icon: 'icon-table'
   },
   children: [
     {
@@ -15,7 +15,7 @@ const tableRoute = {
       name: 'BaseTable',
       component: () => import('_v/Table/base-table/index'),
       meta: {
-        title: 'Base Table'
+        title: '基础表格'
       }
     },
     {
@@ -23,7 +23,7 @@ const tableRoute = {
       name: 'PageTable',
       component: () => import('_v/Table/page-table/index'),
       meta: {
-        title: 'Page Table'
+        title: '分页'
       }
     }
   ]

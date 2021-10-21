@@ -16,6 +16,10 @@ export default {
     display: flex;
     align-items: center;
     cursor: pointer;
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+    padding: 0 5px;
     img {
       width: 50px;
       height: 50px;

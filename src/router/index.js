@@ -24,7 +24,7 @@ export const constantRouterMap = [
     redirect: '/dashboard',
     meta: {
       title: 'Dashboard',
-      icon: 'dashboard'
+      icon: 'icon-home'
     },
     children: [
       {
@@ -32,6 +32,7 @@ export const constantRouterMap = [
         name: 'Home',
         component: () => import('_v/Home/index'),
         meta: {
+          icon: 'icon-home',
           title: '首页'
         }
       }
@@ -43,6 +44,9 @@ export const constantRouterMap = [
 const createRouter = () => new VueRouter({
   routes: constantRouterMap
 })
-
+export function resetRouter() {
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher // reset router
+}
 const router = createRouter()
 export default router

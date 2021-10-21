@@ -1,60 +1,19 @@
 <template>
-  <div class="scrollbar-container">
+  <div :class="{'top-menu': layout === 'top', 'scrollbar-container': layout !== 'top'}">
     <el-scrollbar>
       <el-menu
-        default-active="1-4-1"
-        class="el-menu-vertical-demo"
-        @open="handleOpen"
-        @close="handleClose"
+        :default-active="activeMenu"
+        :unique-opened="false"
+        :collapse-transition="false"
         :collapse="isCollapse"
+        :mode="layout !== 'top' ? 'vertical' : 'horizontal'"
       >
-      <aside-item v-for="route in routers" :key="route.path" :base-path="route.path" :item="route"></aside-item>
-        <!-- <el-submenu index="1">
-          <template slot="title">
-            <i class="el-icon-location"></i>
-            <span slot="title">导航一</span>
-          </template>
-          <el-menu-item-group>
-            <span slot="title">分组一</span>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="分组2">
-            <el-menu-item index="1-3">选项3</el-menu-item>
-          </el-menu-item-group>
-          <el-submenu index="1-4">
-            <span slot="title">选项4</span>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
-          </el-submenu>
-        </el-submenu>
-        <el-submenu index="2">
-          <template slot="title">
-            <i class="el-icon-location"></i>
-            <span slot="title">导航er</span>
-          </template>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-        <el-menu-item index="3">
-          <i class="el-icon-document"></i>
-          <span slot="title">导航三</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item> -->
+        <aside-item
+          v-for="route in routers"
+          :key="route.path"
+          :base-path="route.path"
+          :item="route"
+        />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -75,20 +34,19 @@ export default {
       basepath: null
     }
   },
-  mounted() {
-    console.log(this.routers)
-  },
   computed: {
-    ...mapGetters(['isCollapse'])
-  },
-  methods: {
-    handleOpen (key, keyPath) {
-      console.log(key, keyPath)
-    },
-    handleClose (key, keyPath) {
-      console.log(key, keyPath)
+    ...mapGetters(['isCollapse', 'layout']),
+    activeMenu () {
+      const route = this.$route
+      const { meta, path } = route
+      if(meta.activeMenu) {
+        return meta.activeMenu
+      }
+      return path
     }
-  }
+  },
+  mounted () {},
+  methods: {}
 }
 </script>
 <style lang="less" scoped>
@@ -100,11 +58,38 @@ export default {
     .el-scrollbar__wrap {
       overflow: scroll;
       overflow-x: hidden;
+    }
+  }
+}
+.top-menu {
+  width: 100%;
+  height: 100%;
+  .el-menu-demo {
+    height: 100%;
+  }
+  /deep/ .el-submenu__icon-arrow {
+    right: 0;
+    margin-top: -5px;
+  }
+  /deep/ .el-scrollbar {
+    height: 100%;
+    // width: 100%;
+    // height: calc(100% + 20px);
+    .el-scrollbar__wrap {
+      overflow-x: hidden;
+      overflow-y: hidden;
+      .el-scrollbar__view {
+        white-space: nowrap;
+      }
       .el-menu {
         width: 100%;
         border: none;
       }
     }
+  }
+  /deep/ .el-menu--horizontal>.el-menu-item, .el-menu--horizontal>.el-submenu {
+    display: inline-block;
+    float: none;
   }
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
