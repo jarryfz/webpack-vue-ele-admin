@@ -44,6 +44,7 @@ import {
   Drawer,
   MessageBox,
   Scrollbar,
+  Pagination,
   Message
 } from 'element-ui'
 Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 }
@@ -89,6 +90,7 @@ Vue.use(Loading)
 Vue.use(Breadcrumb)
 Vue.use(Drawer)
 Vue.use(Scrollbar)
+Vue.use(Pagination)
 Vue.use(BreadcrumbItem)
 
 Vue.prototype.$message = Message

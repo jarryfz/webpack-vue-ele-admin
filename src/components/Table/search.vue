@@ -40,6 +40,28 @@
         </el-select>
       </div>
     </template>
+    <template v-if="searchData.datePicker">
+      <div class="search-input-box">
+        <span class=""> {{ searchData.datePicker.name }}</span>
+        <el-date-picker
+          v-model="listQuery[searchData.datePicker.key]"
+          type="date"
+          placeholder="选择日期"
+        />
+      </div>
+    </template>
+    <template v-if="searchData.dateTimeRange">
+      <div class="search-input-box">
+        <span class=""> {{ searchData.dateTimeRange.name }}</span>
+        <el-date-picker
+          v-model="listQuery[searchData.dateTimeRange.key]"
+          type="datetimerange"
+          range-separator="至"
+          :start-placeholder="searchData.dateTimeRange.startPlaceholder ? searchData.dateTimeRange.startPlaceholder : '开始日期'"
+          :end-placeholder="searchData.dateTimeRange.endPlaceholder ? searchData.dateTimeRange.endPlaceholder : '结束日期'"
+        />
+      </div>
+    </template>
     <div class="search-btn">
       <el-button
         class="filter-item"
@@ -105,7 +127,7 @@ export default {
   },
   methods: {
     handleSearch () {
-
+      console.log(this.listQuery)
     },
     handleRest () {
 
@@ -116,6 +138,9 @@ export default {
 
 <style lang="less" scoped>
   .search-container {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 15px;
     .search-input-box {
       display: inline-block;
     }
