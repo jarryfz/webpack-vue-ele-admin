@@ -10,6 +10,7 @@
         <el-input
           v-model="listQuery[item.key]"
           :placeholder="item.name"
+          clearable
           :style="{'width': item.width ? item.width + 'px' : '200px'}"
           class="search-input"
         />
@@ -127,10 +128,10 @@ export default {
   },
   methods: {
     handleSearch () {
-      console.log(this.listQuery)
+      this.$emit('handle-search', this.listQuery)
     },
     handleRest () {
-
+      this.$emit('handle-reset', this.listQuery)
     }
   }
 }

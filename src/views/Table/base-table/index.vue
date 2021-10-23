@@ -4,10 +4,13 @@
       :search-data="searchData"
       :table-data="tableData"
       :table-row-class-name="tableRowClassName"
-      @highlightCurrentChange="highlightCurrentChange"
-      @handleSelectionChange="handleSelectionChange"
-      @handleCurrentChange="handleCurrentChange"
-      @handleSizeChange="handleSizeChange"
+      :loading="loading"
+      @highlight-current-change="highlightCurrentChange"
+      @handle-selection-change="handleSelectionChange"
+      @handle-current-change="handleCurrentChange"
+      @handle-size-change="handleSizeChange"
+      @handle-search="search"
+      @handle-reset="reset"
     />
   </div>
 </template>
@@ -21,6 +24,7 @@ export default {
   },
   data () {
     return {
+      loading: true,
       searchData: {
         elInput: [
           {
@@ -56,18 +60,75 @@ export default {
           {
             prop: 'name',
             // fiexd: 'left', // 固定列 left， right
-            label: '名称'
+            label: '名称',
+            render: (h, data) => {
+              return h(
+                'el-tag',
+                {
+                  props: {
+                    type: 'info'
+                  }
+                },
+                data.name
+              )
+            }
           }
         ],
         // 表格数据
         data: [],
+        // 操作列
+        operation: {
+          label: '操作',
+          overflowTooltip: true,
+          // width: 150,
+          fixed: 'right',
+          btns: [
+            {
+              type: 'primary',
+              icon: 'el-icon-view',
+              label: '查看',
+              // 点击事件
+              btnRowClick: ((index, row) => {
+                console.log(index, row)
+              })
+            },
+            {
+              type: 'success',
+              icon: 'el-icon-edit',
+              label: '编辑',
+              // 是否可操作
+              isDisabled: ((index, row) => {
+                const disabled = row.id === 1
+                return disabled
+              }),
+              // 点击事件
+              btnRowClick: ((index, row) => {
+                console.log(index, row)
+              })
+            },
+            {
+              type: 'danger',
+              // icon: 'el-icon-delete',
+              label: '删除',
+              // 是否可操作
+              isDisabled: ((index, row) => {
+                const disabled = row.id === 1
+                return disabled
+              }),
+              // 点击事件
+              btnRowClick: ((index, row) => {
+                console.log(index, row)
+              })
+            }
+          ]
+        },
         // 分页
         pageData: {
           align: 'left', // 分页位置 left左 center中 right右
           total: 5, // 总条数
-          pageSize: 3, // 每页数量
+          pageSize: 10, // 每页数量
           pageNum: 1, // 页码
-          pageSizes: [2, 5, 15, 20]// 每页数量
+          pageSizes: [10, 20, 30, 40] // 每页数量
         }
       },
       listData: [
@@ -80,14 +141,24 @@ export default {
     }
   },
   mounted () {
-    this.tableData.data = [this.listData[0], this.listData[1]]
+    this.tableData.data = this.listData
+    setTimeout(() => {
+      this.loading = false
+    }, 1000)
   },
   methods: {
     handleAdd (val, e) {
       console.log(val, e)
     },
+    // 搜索
+    search (data) {
+      console.log(data)
+    },
+    // 重置
+    reset (data) {
+      console.log(data)
+    },
     tableRowClassName ({row, rowIndex}) {
-      console.log(row, rowIndex)
       if (rowIndex === 1) {
         return 'warning-row'
       } else if (rowIndex === 3) {
@@ -105,11 +176,8 @@ export default {
     handleSizeChange (val) {
       console.log(val)
     },
-    // 分页
-    handleCurrentChange (val) {
-      this.tableData.data = [this.listData[val - 1], this.listData[val]]
-    }
-  },
+    handleCurrentChange (val) {}
+  }
 }
 </script>
 <style lang="less" scoped>
