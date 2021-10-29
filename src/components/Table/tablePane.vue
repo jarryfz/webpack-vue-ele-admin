@@ -160,66 +160,7 @@ export default {
       type: Function,
       default: () => {}
     },
-    // 当表格的排序条件发生变化的时候会触发该事件{ column, prop, order }
-    sortChange: {
-      type: Function,
-      default: () => {}
-    },
-    // 当用户手动勾选数据行的 Checkbox 时触发的事件	selection, row
-    select: {
-      type: Function,
-      default: () => {}
-    },
-    // 当单元格 hover 进入时会触发该事件	row, column, cell, event
-    cellMouseEnter: {
-      type: Function,
-      default: () => {}
-    },
-    // 当单元格 hover 退出时会触发该事件	row, column, cell, event
-    cellMouseLeave: {
-      type: Function,
-      default: () => {}
-    },
-    // 当某个单元格被点击时会触发该事件	row, column, cell, event
-    cellClick: {
-      type: Function,
-      default: () => {}
-    },
-    // 当某个单元格被双击击时会触发该事件	row, column, cell, event
-    cellDblclick: {
-      type: Function,
-      default: () => {}
-    },
-    // 当某一行被点击时会触发该事件	row, column, event
-    rowClick: {
-      type: Function,
-      default: () => {}
-    },
-    // 当某一行被鼠标右键点击时会触发该事件	row, column, event
-    rowContextmenu: {
-      type: Function,
-      default: () => {}
-    },
-    // 当某一行被双击时会触发该事件	row, column, event
-    rowDblclick: {
-      type: Function,
-      default: () => {}
-    },
-    // 当某一列的表头被点击时会触发该事件	column, event
-    headerClick: {
-      type: Function,
-      default: () => {}
-    },
-    // 当某一列的表头被鼠标右键点击时触发该事件	column, event
-    headerContextmenu: {
-      type: Function,
-      default: () => {}
-    },
-    // 当表格的筛选条件发生变化的时候会触发该事件，参数的值是一个对象，对象的 key 是 column 的 columnKey，对应的 value 为用户选择的筛选条件的数组。	filters
-    handleFilterChange: {
-      type: Function,
-      default: () => {}
-    },
+    
     selectable: {
       type: Function,
       default: res => true
@@ -239,10 +180,6 @@ export default {
     handleCurrentChange (val) {
       this.$emit('handle-current-change', val)
     },
-    // 当用户手动勾选全选 Checkbox 时触发的事件	selection
-    selectAll (selection) {
-      this.$emit('select-all', selection)
-    },
     // 表格单选
     highlightCurrentChange (val) {
       this.$emit('highlight-current-change', val)
@@ -254,8 +191,60 @@ export default {
     // 仅对 type=selection 的列有效，类型为 Function，Function 的返回值用来决定这一行的 CheckBox 是否可以勾选
     isSelectable (row, index) {
       return this.selectable(row, index)
+    },
+    // 当表格的排序条件发生变化的时候会触发该事件{ column, prop, order }
+    sortChange (column, prop, order) {
+      this.$emit('sort-change', column, prop, order)
+    },
+    // 当用户手动勾选数据行的 Checkbox 时触发的事件	selection, row
+    select (selection, row) {
+      this.$emit('select', selection, row)
+    },
+    // 当用户手动勾选全选 Checkbox 时触发的事件	selection
+    selectAll (selection) {
+      this.$emit('select-all', selection)
+    },
+    // 当单元格 hover 进入时会触发该事件	row, column, cell, event
+    cellMouseEnter (row, column, cell, event) {
+      this.$emit('cell-mouse-enter', row, column, cell, event)
+    },
+    // 当单元格 hover 退出时会触发该事件	row, column, cell, event
+    cellMouseLeave (row, column, cell, event) {
+      this.$emit('cell-mouse-leave', row, column, cell, event)
+    },
+    // 当某个单元格被点击时会触发该事件	row, column, cell, event
+    cellClick (row, column, cell, event) {
+      this.$emit('cell-click', row, column, cell, event)
+    },
+    // 当某个单元格被双击击时会触发该事件	row, column, cell, event
+    cellDblclick (row, column, cell, event) {
+      this.$emit('cell-db-click', row, column, cell, event)
+    },
+    // 当某一行被点击时会触发该事件	row, column, event
+    rowClick (row, column, event) {
+      this.$emit('row-click', row, column, event)
+    },
+    // 当某一行被鼠标右键点击时会触发该事件	row, column, event
+    rowContextmenu (row, column, event) {
+      this.$emit('row-contextmenu', row, column, event)
+    },
+    // 当某一行被双击时会触发该事件	row, column, event
+    rowDblclick (row, column, event) {
+      this.$emit('row-db-click', row, column, event)
+    },
+    // 当某一列的表头被点击时会触发该事件	column, event
+    headerClick (column, event) {
+      this.$emit('header-click', column, event)
+    },
+    // 当某一列的表头被鼠标右键点击时触发该事件	column, event
+    headerContextmenu (column, event) {
+      this.$emit('header-contextmenu', column, event)
+    },
+    // 当表格的筛选条件发生变化的时候会触发该事件，参数的值是一个对象，对象的 key 是 column 的 columnKey，对应的 value 为用户选择的筛选条件的数组。	filters
+    handleFilterChange (filters) {
+      this.$emit('handle-filter-change', filters)
     }
-  },
+  }
 }
 </script>
 
