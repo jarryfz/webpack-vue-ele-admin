@@ -1,20 +1,32 @@
 const path = require('path')
-
-const { VueLoaderPlugin } = require('vue-loader')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 // 提取css为单独文件
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-// 导入配置文件
-// const config = require('../config/index')
+const { VueLoaderPlugin } = require('vue-loader')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const webpack = require('webpack')
 
-const isProd = process.argv[2] !== 'serve'
-console.log(process.argv)
 module.exports = {
-  entry: './src/index.js',
+  entry: path.join(__dirname, '../src/index.js'),
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: isProd ? '[name].[contenthash].js' : '[name].js',
-    clean: true
+    filename: process.argv[2] !== 'serve' ? '[name].[contenthash].js' : '[name].js',
+    environment: {
+      // 是否使用箭头函数
+      // The environment supports arrow functions ('() => { ... }').
+      arrowFunction: false,
+      // The environment supports BigInt as literal (123n).
+      bigIntLiteral: false,
+      // The environment supports const and let for variable declarations.
+      const: false,
+      // The environment supports destructuring ('{ a, b } = obj').
+      destructuring: false,
+      // The environment supports an async import() function to import EcmaScript modules.
+      dynamicImport: false,
+      // The environment supports 'for of' iteration ('for (const x of array) { ... }').
+      forOf: false,
+      // The environment supports ECMAScript Module syntax to import ECMAScript modules (import ... from '...').
+      module: false
+    }
   },
   resolve: {
     fallback: { 'path': require.resolve('path-browserify') },
@@ -22,6 +34,7 @@ module.exports = {
     extensions: ['.vue', '.js', '.css', '.less'],
     // 配置别名
     alias: {
+      vue$: 'vue/dist/vue.esm.js',
       // 在import时使用了别名需要安装eslint-import-resolver-webpack
       '@': path.resolve(__dirname, '../src'),
       '_c': path.resolve(__dirname, '../src/components'),
@@ -32,14 +45,7 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          preserveWhitepace: true, // 清除文本换行等情况空格
-          extractCSS: true, // 把vue的css提取到单独的文件，默认
-          cssModules: {} // 用法：<style module>
-          // hotReload: true // 热更新，默认会自动判断是否开发环境自动开启关闭，其实关闭后也会刷新页面更新
-        },
-        exclude: '/node_modules/'
+        loader: 'vue-loader'
       },
       {
         test: /\.svg$/,
@@ -56,7 +62,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          isProd ? MiniCssExtractPlugin.loader : 'style-loader',
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader'
         ]
@@ -64,7 +70,7 @@ module.exports = {
       {
         test: /\.less$/,
         use: [
-          isProd ? MiniCssExtractPlugin.loader : 'style-loader',
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader',
           'less-loader'
@@ -72,23 +78,17 @@ module.exports = {
       },
       {
         test: /\.js$/,
+        // 排除
         exclude: '/node_modules/',
-        use: {
-          loader: 'babel-loader',
-          options: {
-            // 开启babel缓存
-            // 第二次构建时，会读取之前的缓存
-            cacheDirectory: true
-          }
-        }
+        loader: 'babel-loader'
       },
       // 处理图片资源 webpack5已经废弃url-loader，使用type
       {
-        test: /\.(png|jpg|jpeg|gif|svg)$/,
+        test: /\.(png|jpg|jpeg|gif)$/,
         type: 'asset/resource',
         exclude: [path.resolve(__dirname, '../src/assets/icon/')],
         generator: {
-          filename: isProd ? 'img/[name].[contenthash].[ext]' : 'img/[name].[hash].[ext]'
+          filename: process.argv[2] !== 'serve' ? 'img/[name].[contenthash].[ext]' : 'img/[name].[ext]'
         }
       },
       // 处理字体资源
@@ -96,7 +96,7 @@ module.exports = {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         type: 'asset/resource',
         generator: {
-          filename: isProd ? 'font/[name].[contenthash].[ext]' : 'font/[name].[hash].[ext]'
+          filename: process.argv[2] !== 'serve' ? 'font/[name].[contenthash].[ext]' : 'font/[name].[ext]'
         }
       }
     ]
@@ -104,6 +104,13 @@ module.exports = {
   plugins: [
     // 每次构建清理dist文件夹
     new CleanWebpackPlugin(),
-    new VueLoaderPlugin()
-  ]
+    new VueLoaderPlugin(),
+    new webpack.ProvidePlugin({
+      Vue: ['vue/dist/vue.esm.js', 'default']
+    }),
+    new MiniCssExtractPlugin({
+      filename: process.argv[2] !== 'serve' ? 'css/[name].[contenthash].css' : 'css/[name].css'
+    })
+  ],
+  target: ['web', 'es5']
 }
