@@ -57,6 +57,15 @@
           :reserve-selection="true"
           align="center"
         />
+        <!-- radio单选 -->
+        <el-table-column
+          v-if="tableData.radio"
+          width="55"
+        >
+          <template slot-scope="scope">
+            <el-radio :label="scope.$index" @change.prevent.stop="radioChange(scope.$index, scope.row)"></el-radio>
+          </template>
+        </el-table-column>
         <!-- 当行内容过多并且不想显示横向滚动条时，可以使用 Table 展开行功能 -->
         <template v-for="item in tableData.cols">
           <!-- 普通列，适用大部分情况 -->
@@ -114,7 +123,11 @@
         </el-table-column>
       </el-table>
       <!-- 分页 -->
-      <div class="pagination-box" :style="{'text-align': tableData.pageData.align ? tableData.pageData.align  : 'right' }">
+      <div
+        v-if="tableData.pageData"
+        class="pagination-box"
+        :style="{'text-align': tableData.pageData.align ? tableData.pageData.align : 'right' }"
+      >
         <el-pagination
           v-if="tableData.pageData.total > 0"
           :current-page="tableData.pageData.pageNum"
@@ -160,7 +173,6 @@ export default {
       type: Function,
       default: () => {}
     },
-    
     selectable: {
       type: Function,
       default: res => true
@@ -179,6 +191,10 @@ export default {
     },
     handleCurrentChange (val) {
       this.$emit('handle-current-change', val)
+    },
+    // radio单选事件
+    radioChange (index, row) {
+      this.$emit('cell-radio-change', index, row)
     },
     // 表格单选
     highlightCurrentChange (val) {

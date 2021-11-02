@@ -69,7 +69,6 @@ export default {
       }
     },
     changeFullScreen () {
-      console.log(screenfull)
       if (!screenfull.isEnabled) {
         this.$message({
           message: 'you browser can not work',
@@ -77,7 +76,14 @@ export default {
         })
         return false
       }
-      screenfull.toggle()
+      // screenfull在IE下引起的坑（排版错乱）
+      // 解决方案：添加判断IE的逻辑，并把全屏的元素设置为body
+      if(!!window.ActiveXObject || 'ActiveXObject' in window) {
+        screenfull.toggle(document.getElementsByTagName('body')[0])
+      } else {
+        screenfull.toggle()
+      }
+      this.isFullscreen = !this.isFullscreen
     },
     logout () {
       wsCache.delete('token')

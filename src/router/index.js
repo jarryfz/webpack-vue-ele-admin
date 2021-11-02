@@ -29,7 +29,7 @@ export const constantRouterMap = [
     children: [
       {
         path: '/dashboard',
-        name: 'Home',
+        name: '首页',
         component: () => import('_v/Home/index'),
         meta: {
           icon: 'icon-home',

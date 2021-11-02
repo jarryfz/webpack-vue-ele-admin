@@ -1,4 +1,5 @@
 export default {
   isCollapse: state => state.app.isCollapse,
-  layout: state => state.app.layout
+  layout: state => state.app.layout,
+  tagsList: state => state.tagsView.tagsList
 }

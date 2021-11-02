@@ -12,7 +12,7 @@ const tableRoute = {
   children: [
     {
       path: 'base-table',
-      name: 'BaseTable',
+      name: '基础表格',
       component: () => import('_v/Table/base-table/index'),
       meta: {
         title: '基础表格'
@@ -20,10 +20,58 @@ const tableRoute = {
     },
     {
       path: 'page-table',
-      name: 'PageTable',
+      name: '分页表格',
       component: () => import('_v/Table/page-table/index'),
       meta: {
-        title: '分页'
+        title: '分页表格'
+      }
+    },
+    {
+      path: 'search-table',
+      name: '搜索栏表格',
+      component: () => import('_v/Table/search-table/index'),
+      meta: {
+        title: '搜索栏表格'
+      }
+    },
+    {
+      path: 'stripe-table',
+      name: '斑马纹表格',
+      component: () => import('_v/Table/stripe-table/index'),
+      meta: {
+        title: '斑马纹表格'
+      }
+    },
+    {
+      path: 'row-class-name-table',
+      name: '状态表格',
+      component: () => import('_v/Table/row-class-name-table/index'),
+      meta: {
+        title: '状态表格'
+      }
+    },
+    {
+      path: 'column-fixed-table',
+      name: '固定列',
+      component: () => import('_v/Table/column-fiexd-table/index'),
+      meta: {
+        title: '固定列'
+      }
+    },
+    {
+      path: 'radio-select-table',
+      name: 'radio单选表格',
+      component: () => import('_v/Table/radio-select-table/index'),
+      meta: {
+        title: 'radio单选表格'
+      }
+    },
+    {
+      path: 'select-table',
+      name: '多选表格',
+      component: () => import('_v/Table/select-table/index'),
+      meta: {
+        title: '多选表格'
       }
     }
   ]

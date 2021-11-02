@@ -68,9 +68,11 @@ export default {
       background: #eee;
       .header {
         height: 60px;
+        background: #fff;
       }
       .tags-view-wrap {
         height: 50px;
+        line-height: 50px;
       }
       .app-right-main {
         height: calc(100% - 110px);

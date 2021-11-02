@@ -1,16 +1,8 @@
 <template>
   <div>
     <table-pane
-      :search-data="searchData"
       :table-data="tableData"
-      :table-row-class-name="tableRowClassName"
       :loading="loading"
-      @highlight-current-change="highlightCurrentChange"
-      @handle-selection-change="handleSelectionChange"
-      @handle-current-change="handleCurrentChange"
-      @handle-size-change="handleSizeChange"
-      @handle-search="search"
-      @handle-reset="reset"
     />
   </div>
 </template>
@@ -25,41 +17,12 @@ export default {
   data () {
     return {
       loading: true,
-      searchData: {
-        elInput: [
-          {
-            key: 'name',
-            name: '名称',
-            width: 150
-          }
-        ],
-        datePicker: {
-          key: 'time',
-          name: '时间',
-          type: 'date'
-        }
-      },
       tableData: {
         border: true, // 是否开启边框
-        stripe: false, // 是否带斑马纹
-        // index: true, // 是否开启序号
-        rowClassName: true, // 带状态表格
-        currentRow: true, // 单选
-        selection: true, // 多选
-        tool: [
-          {
-            name: '新增用户', // 按钮名称
-            key: 1, // 唯一标识符
-            type: '', // 使用element自带按钮类型
-            bgColor: '#67c23a', // 自定义背景色
-            handleClick: this.handleAdd // 自定义事件
-          }
-        ],
         // 列
         cols: [
           {
             prop: 'name',
-            // fiexd: 'left', // 固定列 left， right
             label: '名称',
             render: (h, data) => {
               return h(
@@ -121,14 +84,6 @@ export default {
               })
             }
           ]
-        },
-        // 分页
-        pageData: {
-          align: 'left', // 分页位置 left左 center中 right右
-          total: 5, // 总条数
-          pageSize: 10, // 每页数量
-          pageNum: 1, // 页码
-          pageSizes: [10, 20, 30, 40] // 每页数量
         }
       },
       listData: [
@@ -147,25 +102,6 @@ export default {
     }, 1000)
   },
   methods: {
-    handleAdd (val, e) {
-      console.log(val, e)
-    },
-    // 搜索
-    search (data) {
-      console.log(data)
-    },
-    // 重置
-    reset (data) {
-      console.log(data)
-    },
-    tableRowClassName ({row, rowIndex}) {
-      if (rowIndex === 1) {
-        return 'warning-row'
-      } else if (rowIndex === 3) {
-        return 'success-row'
-      }
-      return ''
-    },
     highlightCurrentChange (val) {
       console.log(val)
     },
