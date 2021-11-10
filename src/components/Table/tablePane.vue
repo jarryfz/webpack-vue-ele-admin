@@ -1,6 +1,6 @@
 <template>
   <div class="table-wrap">
-    <Search :search-data="searchData" />
+    <Search :search-data="searchData" @handle-search="handleSearch" @handle-reset="handleReset" />
     <div class="table-container" v-loading="loading">
       <div v-if="tableData.tool" class="tool">
         <el-button
@@ -61,9 +61,10 @@
         <el-table-column
           v-if="tableData.radio"
           width="55"
+          align="center"
         >
           <template slot-scope="scope">
-            <el-radio :label="scope.$index" @change.prevent.stop="radioChange(scope.$index, scope.row)"></el-radio>
+            <el-radio v-model="tableRadio" :label="scope.$index" @change="radioChange(scope.$index, scope.row)"><i>&nbsp;</i></el-radio>
           </template>
         </el-table-column>
         <!-- 当行内容过多并且不想显示横向滚动条时，可以使用 Table 展开行功能 -->
@@ -74,7 +75,7 @@
             :prop="item.prop"
             :label="item.label"
             :width="item.width"
-            :fiexd="item.fiexd"
+            :fixed="item.fixed"
             :sortable="item.sortable"
             :filters="item.filters"
             :filter-placement="item.filterPlacement"
@@ -180,12 +181,19 @@ export default {
   },
   data () {
     return {
+      tableRadio: '',
       getRowKeys (row) {
         return row.id
       }
     }
   },
   methods: {
+    handleSearch (params) {
+      this.$emit('handle-search-btn', params)
+    },
+    handleReset (params) {
+      this.$emit('handle-reset-btn', params)
+    },
     handleSizeChange (val) {
       this.$emit('handle-size-change', val)
     },

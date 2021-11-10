@@ -19,7 +19,7 @@
     <template v-if="searchData.elSelect">
       <div
         v-for="(item, index) in searchData.elSelect"
-        :key="index"
+        :key="'select' + index"
         class="search-input-box"
       >
         <span class="label-input">{{ item.name }}</span>
@@ -123,15 +123,28 @@ export default {
   },
   data () {
     return {
-      listQuery: {}
+      listQuery: {},
+      queryData: {}
+    }
+  },
+  watch: {
+    listQuery: {
+      handler (value) {
+        this.queryData = value
+      },
+      immediate: true,
+      deep: true
     }
   },
   methods: {
     handleSearch () {
-      this.$emit('handle-search', this.listQuery)
+      this.$emit('handle-search', this.queryData)
     },
     handleRest () {
-      this.$emit('handle-reset', this.listQuery)
+      Object.keys(this.listQuery).forEach((key) => {
+        this.listQuery[key] = ''
+      })
+      this.$emit('handle-search', this.queryData)
     }
   }
 }
