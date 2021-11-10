@@ -53,6 +53,7 @@
   },
   "dependencies": {
     "core-js": "^3.18.1",
+    "echarts": "^5.2.2",
     "element-ui": "^2.15.6",
     "save-dev": "0.0.1-security",
     "screenfull": "^5.1.0",

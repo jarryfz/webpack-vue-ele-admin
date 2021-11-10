@@ -9,6 +9,9 @@ import './styles/index.less'
 import './permision'
 import '@/assets/icon'
 
+import * as echarts from 'echarts'
+Vue.prototype.$echarts = echarts
+
 import store from './store/index'
 
 new Vue({
