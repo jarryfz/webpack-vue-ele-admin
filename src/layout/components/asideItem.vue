@@ -68,20 +68,18 @@ export default {
         return true
       }
       if (showingChildren.length === 0) {
-        console.log(parent)
         this.onlyOneChild = { ... parent, path: '', noShowingChildren: true }
         return true
       }
       return false
     },
-    resolvePath(routePath) {
+    resolvePath (routePath) {
       if (isExternal(routePath)) {
         return routePath
       }
       if (isExternal(this.basePath)) {
         return this.basePath
       }
-      console.log(routePath)
       return path.resolve(this.basePath, routePath)
     }
   }

@@ -11,7 +11,7 @@
         <div class="app-main-header">
           <nav-header />
         </div>
-        <div class="app-main-view">
+        <div class="app-main-view scrollbar-wrap">
           <router-view></router-view>
         </div>
       </div>
@@ -74,6 +74,7 @@ export default {
           height: calc(100% - 80px);
           box-sizing: border-box;
           padding: 20px;
+          overflow-y: auto;
         }
       }
       .app-main--collapse {

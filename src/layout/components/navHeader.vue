@@ -34,15 +34,12 @@ export default {
       return this.isCollapse ? 'open' : 'fold'
     }
   },
-  mounted () {
-    console.log(this.$router)
-  },
+  mounted () {},
   methods: {
     ...mapActions({
       collapse: 'isCollapseFun'
     }),
     changeCollapse () {
-      console.log(1)
       this.collapse()
     }
   }

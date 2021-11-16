@@ -9,7 +9,7 @@
     <div class="app-tags">
       <TagView />
     </div>
-    <div class="app-main-view">
+    <div class="app-main-view scrollbar-wrap">
       <router-view></router-view>
     </div>
     <Setting />
@@ -51,6 +51,7 @@ export default {
       padding: 20px;
       box-sizing: border-box;
       background: #eee;
+      overflow-y: auto;
     }
   }
 </style>

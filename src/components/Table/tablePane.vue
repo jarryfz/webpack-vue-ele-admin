@@ -1,6 +1,6 @@
 <template>
   <div class="table-wrap">
-    <Search :search-data="searchData" @handle-search="handleSearch" @handle-reset="handleReset" />
+    <Search v-if="Object.keys(searchData).length !== 0" :search-data="searchData" @handle-search="handleSearch" @handle-reset="handleReset" />
     <div class="table-container" v-loading="loading">
       <div v-if="tableData.tool" class="tool">
         <el-button
@@ -157,7 +157,7 @@ export default {
     // 搜索栏
     searchData: {
       type: Object,
-      default: () => {}
+      default: () => ({})
     },
     // 加载
     loading: {

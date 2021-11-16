@@ -1,6 +1,6 @@
 <template>
   <div class="search-container">
-    <template v-if="searchData.elInput">
+    <template v-if="searchData && searchData.elInput">
       <div
         v-for="(item, index) in searchData.elInput"
         :key="index"
@@ -16,7 +16,7 @@
         />
       </div>
     </template>
-    <template v-if="searchData.elSelect">
+    <template v-if="searchData && searchData.elSelect">
       <div
         v-for="(item, index) in searchData.elSelect"
         :key="'select' + index"
@@ -41,7 +41,7 @@
         </el-select>
       </div>
     </template>
-    <template v-if="searchData.datePicker">
+    <template v-if="searchData && searchData.datePicker">
       <div class="search-input-box">
         <span class=""> {{ searchData.datePicker.name }}</span>
         <el-date-picker
@@ -51,7 +51,7 @@
         />
       </div>
     </template>
-    <template v-if="searchData.dateTimeRange">
+    <template v-if="searchData && searchData.dateTimeRange">
       <div class="search-input-box">
         <span class=""> {{ searchData.dateTimeRange.name }}</span>
         <el-date-picker

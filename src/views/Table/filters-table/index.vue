@@ -1,11 +1,11 @@
 <template>
   <div>
     <table-pane
+      ref="table"
       :search-data="searchData"
       :table-data="tableData"
       @handle-current-change="handleCurrentChange"
       @handle-size-change="handleSizeChange"
-      @handle-search-btn="handelSearch"
     />
   </div>
 </template>
@@ -13,31 +13,43 @@
 <script>
 import TablePane from '_c/Table/tablePane.vue'
 export default {
-  name: 'SearchTable',
+  name: 'FiltersTable',
   components: {
     TablePane
   },
   data () {
     return {
       // 搜索栏
-      searchData: {
-        elInput: [
-          { width: 150, key: 'name', name: '姓名' },
-          { width: 160, key: 'age', name: '年龄' }
-        ],
-        elSelect: [
-          { width: 150, key: 'sex', name: '性别', options: [{label: '男', value: 1}, {label: '女', value: 2}] }
-        ]
-      },
+      searchData: {},
       tableData: {
         border: true,
+        defaultSort: {prop: 'age', order: 'descending'},
+        tool: [
+          {
+            key: '',
+            name: '清除过滤器',
+            handleClick: (name, e) => {
+              this.$refs.table.$refs.elTable.clearFilter()
+            }
+          }
+        ],
         cols: [
           {
             prop: 'name',
+            filters: [
+              { text: '张三', value: '张三' },
+              { text: '李四', value: '李四' },
+              { text: '王五', value: '王五' }
+            ],
+            filterHandler: (value, row, column) => {
+              const property = column.property
+              return row[property] === value
+            },
             label: '姓名'
           },
           {
             prop: 'age',
+            sortable: true,
             label: '年龄'
           },
           {
@@ -57,8 +69,16 @@ export default {
           }
         ],
         data: [
-          { name: '张三', age: '14', sex: '1' },
-          {name: '王五', age: '16', sex: '2' }
+          { id: 1, name: '张三', age: '14', sex: '1' },
+          { id: 2, name: '李四', age: '15', sex: '2' },
+          { id: 3, name: '王五', age: '16', sex: '2' },
+          { id: 4, name: '王五', age: '16', sex: '2' },
+          { id: 5, name: '王五', age: '16', sex: '2' },
+          { id: 6, name: '王五', age: '16', sex: '2' },
+          { id: 7, name: '张三', age: '14', sex: '1' },
+          { id: 8, name: '李四', age: '15', sex: '2' },
+          { id: 9, name: '王五', age: '16', sex: '2' },
+          { id: 10, name: '王五', age: '16', sex: '2' }
         ],
         operation: {
           label: '操作',
@@ -81,7 +101,7 @@ export default {
         // 分页
         pageData: {
           align: 'left', // 分页位置 left左 center中 right右
-          total: 5, // 总条数
+          total: 10, // 总条数
           pageSize: 10, // 每页数量
           pageNum: 1, // 页码
           pageSizes: [10, 20, 30, 40] // 每页数量
@@ -96,6 +116,9 @@ export default {
         message: params,
         duration: 3000
       })
+    },
+    handleSelectionChange (rows) {
+      this.multipleSelection = rows
     },
     handleCurrentChange (val) {
       this.$notify({
@@ -115,5 +138,5 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-  
+
 </style>

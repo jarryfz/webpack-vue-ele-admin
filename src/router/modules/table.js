@@ -19,6 +19,14 @@ const tableRoute = {
       }
     },
     {
+      path: 'index-table',
+      name: '索引表格',
+      component: () => import('_v/Table/index-table/index'),
+      meta: {
+        title: '索引表格'
+      }
+    },
+    {
       path: 'page-table',
       name: '分页表格',
       component: () => import('_v/Table/page-table/index'),
@@ -72,6 +80,22 @@ const tableRoute = {
       component: () => import('_v/Table/select-table/index'),
       meta: {
         title: '多选表格'
+      }
+    },
+    {
+      path: 'sort-table',
+      name: '排序表格',
+      component: () => import('_v/Table/sort-table/index'),
+      meta: {
+        title: '排序表格'
+      }
+    },
+    {
+      path: 'filters-table',
+      name: '筛选表格',
+      component: () => import('_v/Table/filters-table/index'),
+      meta: {
+        title: '筛选表格'
       }
     }
   ]

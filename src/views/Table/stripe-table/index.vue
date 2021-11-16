@@ -6,7 +6,6 @@
       @handle-current-change="handleCurrentChange"
       @handle-size-change="handleSizeChange"
       @handle-search-btn="handelSearch"
-      @handle-reset-btn="handelReset"
     />
   </div>
 </template>

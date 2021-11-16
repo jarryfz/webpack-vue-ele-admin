@@ -13,7 +13,7 @@
       <div class="tags-view-wrap">
         <TagView />
       </div>
-      <div class="app-right-main">
+      <div class="app-right-main scrollbar-wrap">
         <router-view />
       </div>
     </div>
@@ -78,6 +78,7 @@ export default {
         height: calc(100% - 110px);
         padding: 20px;
         box-sizing: border-box;
+        overflow-y: auto;
       }
     }
     .app-right--collapse {

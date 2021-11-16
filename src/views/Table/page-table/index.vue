@@ -2,14 +2,9 @@
   <div>
     <table-pane
       :table-data="tableData"
-      :table-row-class-name="tableRowClassName"
       :loading="loading"
-      @highlight-current-change="highlightCurrentChange"
-      @handle-selection-change="handleSelectionChange"
       @handle-current-change="handleCurrentChange"
       @handle-size-change="handleSizeChange"
-      @handle-search="search"
-      @handle-reset="reset"
     />
   </div>
 </template>
@@ -95,6 +90,24 @@ export default {
     setTimeout(() => {
       this.loading = false
     }, 1000)
+  },
+  methods: {
+    // 单前页
+    handleCurrentChange (val) {
+      this.$notify({
+        title: '提示',
+        message: val,
+        duration: 0
+      })
+    },
+    // 每页条数
+    handleSizeChange (val) {
+      this.$notify({
+        title: '提示',
+        message: val,
+        duration: 0
+      })
+    }
   }
 }
 </script>
