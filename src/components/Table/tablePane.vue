@@ -96,7 +96,7 @@
         </template>
         <!-- 操作列 -->
         <el-table-column
-          v-if="tableData.operation.btns.length > 0"
+          v-if="tableData.operation && tableData.operation.btns.length > 0"
           :width="tableData.operation.width"
           :label="tableData.operation.label"
           :fixed="tableData.operation.fixed"
@@ -187,6 +187,12 @@ export default {
       }
     }
   },
+  mounted () {
+    // 解决在ie下el-table-column 设置fixed高度错位问题
+    this.$nextTick(() => {
+      this.$refs.elTable.doLayout()
+    })
+  },
   methods: {
     handleSearch (params) {
       this.$emit('handle-search-btn', params)
@@ -274,6 +280,7 @@ export default {
 
 <style lang="less" scoped>
   .table-wrap {
+    width: 100%;
     .table-container {
       background: #ffffff;
       padding: 20px;

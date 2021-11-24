@@ -44,7 +44,7 @@ export default {
           label: '操作',
           overflowTooltip: true,
           // width: 150,
-          fixed: 'right',
+          // fixed: 'right',
           btns: [
             {
               type: 'primary',

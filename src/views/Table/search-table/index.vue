@@ -62,6 +62,7 @@ export default {
         ],
         operation: {
           label: '操作',
+          fixed: true,
           btns: [
             {
               type: 'primary',
