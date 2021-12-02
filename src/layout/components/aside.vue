@@ -9,7 +9,7 @@
         :mode="layout !== 'top' ? 'vertical' : 'horizontal'"
       >
         <aside-item
-          v-for="route in routers"
+          v-for="route in routes"
           :key="route.path"
           :base-path="route.path"
           :item="route"
@@ -22,7 +22,7 @@
 <script>
 import AsideItem from './asideItem.vue'
 import { mapGetters } from 'vuex'
-import { constantRouterMap } from '@/router'
+// import { constantRouterMap } from '@/router'
 export default {
   name: 'Aside',
   components: {
@@ -30,12 +30,12 @@ export default {
   },
   data () {
     return {
-      routers: constantRouterMap,
+      // routers: constantRouterMap,
       basepath: null
     }
   },
   computed: {
-    ...mapGetters(['isCollapse', 'layout']),
+    ...mapGetters(['isCollapse', 'layout', 'routes']),
     activeMenu () {
       const route = this.$route
       const { meta, path } = route

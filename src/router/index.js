@@ -23,8 +23,7 @@ export const constantRouterMap = [
     component: Layout, // 需要添加 @babel/plugin-syntax-dynamic-import 插件 不然import报错
     redirect: '/dashboard',
     meta: {
-      title: 'Dashboard',
-      icon: 'icon-home'
+      title: 'Dashboard'
     },
     children: [
       {
@@ -37,9 +36,43 @@ export const constantRouterMap = [
         }
       }
     ]
+  }
+]
+export const asyncRouterMap = [
+  table,
+  {
+    path: '/test',
+    component: Layout,
+    redirect: '/test/permission',
+    meta: {title: 'Test'},
+    children: [
+      {
+        path: '/test/permission',
+        name: '权限测试',
+        component: () => import('_v/Test/permission.vue'),
+        meta: {title: '权限测试', icon: 'icon-home'}
+      }
+    ]
   },
-  { path: '*', redirect: '/404', hidden: true },
-  table
+  { path: '*', redirect: '/404', hidden: true }
+]
+export const mockRouterMap = [
+  table,
+  {
+    path: '/test',
+    component: Layout,
+    redirect: '/test/permission',
+    meta: {title: 'Test'},
+    children: [
+      {
+        path: '/test/permission',
+        name: '模拟后端路由',
+        component: () => import('_v/Test/permission.vue'),
+        meta: {title: '模拟后端路由', icon: 'icon-home'}
+      }
+    ]
+  },
+  { path: '*', redirect: '/404', hidden: true }
 ]
 const createRouter = () => new VueRouter({
   routes: constantRouterMap

@@ -86,7 +86,7 @@ export default {
       this.isFullscreen = !this.isFullscreen
     },
     logout () {
-      wsCache.delete('token')
+      wsCache.clear()
       resetRouter()
       this.$router.replace('/login')
     }

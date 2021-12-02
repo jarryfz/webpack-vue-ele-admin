@@ -5,21 +5,20 @@ const app = {
     status: 0,
     token: wsCache.get('token'),
     isCollapse: false,
+    userInfo: '',
     layout: 'classic' // 导航栏方式
   },
   getters: {
     doStatus: state => state.status + 1
   },
   mutations: {
-    ADD_FUN: (state, value) => {
-      state.status = state.status + value
-    },
-    REDUCTION_FUN: (state, value) => {
-      state.status = state.status - value
-    },
     SET_TOKEN: (state, token) => {
       state.token = token
       wsCache.set('token', token)
+    },
+    SET_USERINFO: (state, info) => {
+      state.userInfo = info
+      wsCache.set('userInfo', info)
     },
     IS_COLLAPSE: (state) => {
       state.isCollapse = !state.isCollapse
@@ -29,16 +28,15 @@ const app = {
     }
   },
   actions: {
-    addFun ({ commit }, value) {
-      commit('ADD_FUN', value)
-    },
-    reductionFun ({ commit }, value) {
-      commit('REDUCTION_FUN', value)
-    },
     loginFun ({ commit }, params) {
       return new Promise((resolve, reject) => {
         try {
           commit('SET_TOKEN', 'token')
+          commit('SET_USERINFO', {
+            userName: params.userName,
+            roleName: params.userName,
+            roleId: params.userName === 'admin' ? '1' : '2'
+          })
           resolve()
         } catch {
           reject()

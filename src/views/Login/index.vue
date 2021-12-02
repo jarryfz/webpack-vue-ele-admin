@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'Login',
   data() {
@@ -34,18 +34,25 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters(['addRoutes'])
+  },
   methods: {
     ...mapActions({
-      loginFun: 'loginFun'
+      loginFun: 'loginFun',
+      generateRoutes: 'generateRoutes'
     }),
     login() {
       this.$refs.loginForm.validate((v) => {
         if(v) {
           this.loginFun(this.form).then(() => {
-            this.$router.push({path: '/'})
+            this.generateRoutes().then(() => {
+              this.$router.addRoutes(this.addRoutes) // 动态添加可访问路由表
+              this.$router.push({path: '/'})
+            })
           })
         } else {
-          return false; 
+          return false
         }
       })
     }
