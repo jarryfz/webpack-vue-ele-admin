@@ -58,22 +58,27 @@ export const asyncRouterMap = [
 ]
 export const mockRouterMap = [
   table,
-  {
-    path: '/test',
-    component: Layout,
-    redirect: '/test/permission',
-    meta: {title: 'Test'},
-    children: [
-      {
-        path: '/test/permission',
-        name: '模拟后端路由',
-        component: () => import('_v/Test/permission.vue'),
-        meta: {title: '模拟后端路由', icon: 'icon-home'}
-      }
-    ]
-  },
+  // {
+  //   path: '/test',
+  //   component: Layout,
+  //   redirect: '/test/permission',
+  //   meta: {title: 'Test'},
+  //   children: [
+  //     {
+  //       path: '/test/permission',
+  //       name: '模拟后端路由',
+  //       component: () => import('_v/Test/permission.vue'),
+  //       meta: {title: '模拟后端路由', icon: 'icon-home'}
+  //     }
+  //   ]
+  // },
   { path: '*', redirect: '/404', hidden: true }
 ]
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
+  if (onResolve || onReject) { return originalPush.call(this, location, onResolve, onReject) }
+  return originalPush.call(this, location).catch((err) => err)
+}
 const createRouter = () => new VueRouter({
   routes: constantRouterMap
 })

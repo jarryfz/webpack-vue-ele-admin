@@ -22,12 +22,11 @@ const permission = {
       return new Promise((resolve, reject) => {
         try {
           const info = wsCache.get('userInfo')
-          console.log(info)
           if(info.roleName === 'admin') {
-            const routes = deepClone(asyncRouterMap, ['component'])
+            const routes = deepClone(asyncRouterMap)
             commit('SET_ROUTERS', routes)
           } else {
-            const routes = deepClone(mockRouterMap, ['component'])
+            const routes = deepClone(mockRouterMap)
             commit('SET_ROUTERS', routes)
           }
           resolve()

@@ -40,17 +40,22 @@ export default {
   methods: {
     ...mapActions({
       loginFun: 'loginFun',
-      generateRoutes: 'generateRoutes'
+      generateRoutes: 'generateRoutes',
+      setIsAddRoutes: 'setIsAddRoutes'
     }),
-    login() {
-      this.$refs.loginForm.validate((v) => {
+    login () {
+      this.$refs.loginForm.validate(async (v) => {
         if(v) {
-          this.loginFun(this.form).then(() => {
-            this.generateRoutes().then(() => {
-              this.$router.addRoutes(this.addRoutes) // 动态添加可访问路由表
-              this.$router.push({path: '/'})
+          const res = await this.$api.user.login(this.form)
+          if (res) {
+            this.loginFun(this.form).then(() => {
+              this.generateRoutes().then(() => {
+                this.$router.addRoutes(this.addRoutes) // 动态添加可访问路由表
+                this.setIsAddRoutes(true)
+                this.$router.push({path: '/'})
+              })
             })
-          })
+          }
         } else {
           return false
         }

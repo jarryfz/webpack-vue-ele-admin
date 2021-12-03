@@ -4,6 +4,6 @@ module.exports = {
     env: require('./prod.env'),
   },
   dev: {
-    env: require('./dev.env')
+    env: require('./dev.env'),
   }
 }

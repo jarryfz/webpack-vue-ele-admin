@@ -7,12 +7,14 @@ import './element/index'
 import './styles/index.less'
 
 import './permision'
+import store from './store/index'
 import '@/assets/icon'
+import './mock/index'
+import api from './api/index'
 
 import * as echarts from 'echarts'
 Vue.prototype.$echarts = echarts
-
-import store from './store/index'
+Vue.prototype.$api = api
 
 new Vue({
   el: '#app',
