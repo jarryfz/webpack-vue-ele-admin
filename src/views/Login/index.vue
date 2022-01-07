@@ -40,6 +40,7 @@ export default {
   methods: {
     ...mapActions({
       loginFun: 'loginFun',
+      userInfo: 'userInfo',
       generateRoutes: 'generateRoutes',
       setIsAddRoutes: 'setIsAddRoutes'
     }),
@@ -47,8 +48,9 @@ export default {
       this.$refs.loginForm.validate(async (v) => {
         if(v) {
           const res = await this.$api.user.login(this.form)
-          if (res) {
-            this.loginFun(this.form).then(() => {
+          if (res.code === 200) {
+            this.getUserInfo(res.data.role)
+            this.loginFun().then(() => {
               this.generateRoutes().then(() => {
                 this.$router.addRoutes(this.addRoutes) // 动态添加可访问路由表
                 this.setIsAddRoutes(true)
@@ -60,6 +62,12 @@ export default {
           return false
         }
       })
+    },
+    async getUserInfo (id) {
+      const res = await this.$api.user.userInfo({id: id})
+      if (res.code === 200) {
+        this.userInfo(res.data).then(() =>{})
+      }
     }
   },
 }

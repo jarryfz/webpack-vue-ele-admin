@@ -52,15 +52,6 @@ module.exports = merge(common, {
     compress: true,
     hot: true,
     port: 3000,
-    // proxy: {
-    //   '/api': {
-    //     target: 'http://mockjs.com',
-    //     changeOrigin: true,
-    //     pathRewrite: {
-    //       '/api': ''
-    //     }
-    //   }
-    // }
-    // open: true
+    open: true
   }
 })

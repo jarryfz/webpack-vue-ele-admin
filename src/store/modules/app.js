@@ -28,15 +28,20 @@ const app = {
     }
   },
   actions: {
-    loginFun ({ commit }, params) {
+    loginFun ({ commit }) {
       return new Promise((resolve, reject) => {
         try {
           commit('SET_TOKEN', 'token')
-          commit('SET_USERINFO', {
-            userName: params.userName,
-            roleName: params.userName,
-            roleId: params.userName === 'admin' ? '1' : '2'
-          })
+          resolve()
+        } catch {
+          reject()
+        }
+      })
+    },
+    userInfo ({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        try {
+          commit('SET_USERINFO', params)
           resolve()
         } catch {
           reject()
