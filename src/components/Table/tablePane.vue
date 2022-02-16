@@ -24,21 +24,7 @@
         :highlight-current-row="!!tableData.currentRow"
         :row-key="getRowKeys"
         :default-sort="tableData.defaultSort"
-        @current-change="highlightCurrentChange"
-        @selection-change="handleSelectionChange"
-        @sort-change="sortChange"
-        @select="select"
-        @select-all="selectAll"
-        @cell-mouse-enter="cellMouseEnter"
-        @cell-mouse-leave="cellMouseLeave"
-        @cell-click="cellClick"
-        @cell-dblclick="cellDblclick"
-        @row-click="rowClick"
-        @row-contextmenu="rowContextmenu"
-        @row-dblclick="rowDblclick"
-        @header-click="headerClick"
-        @header-contextmenu="headerContextmenu"
-        @filter-change="handleFilterChange"
+        v-on="$listeners"
       >
         <!-- 是否开启序号 -->
         <el-table-column

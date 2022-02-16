@@ -49,12 +49,13 @@ export default {
         if(v) {
           const res = await this.$api.user.login(this.form)
           if (res.code === 200) {
-            this.getUserInfo(res.data.role)
-            this.loginFun().then(() => {
-              this.generateRoutes().then(() => {
-                this.$router.addRoutes(this.addRoutes) // 动态添加可访问路由表
-                this.setIsAddRoutes(true)
-                this.$router.push({path: '/'})
+            this.getUserInfo(res.data.role).then(() => {
+              this.loginFun().then(() => {
+                this.generateRoutes().then(() => {
+                  this.$router.addRoutes(this.addRoutes) // 动态添加可访问路由表
+                  this.setIsAddRoutes(true)
+                  this.$router.push({path: '/'})
+                })
               })
             })
           }
