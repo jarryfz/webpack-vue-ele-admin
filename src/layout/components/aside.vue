@@ -6,6 +6,7 @@
         :unique-opened="false"
         :collapse-transition="false"
         :collapse="isCollapse"
+        :active-text-color="layout === 'top' ? '#409eff' : '#ffffff'"
         :mode="layout !== 'top' ? 'vertical' : 'horizontal'"
       >
         <aside-item

@@ -4,7 +4,7 @@ function get (params, url, headersType, responseType) {
   return request({
     url: url,
     method: 'get',
-    params,
+    data: params,
     responseType: responseType
   })
 }

@@ -4,8 +4,11 @@
       <h2 v-if="layout !== 'classic'">webpack-vue-admin</h2>
       <nav-header v-if="layout === 'classic'" />
     </div>
-    <div class="app-header-box-nav">
-      <Aside v-if="layout === 'top'" />
+    <div
+      v-if="layout === 'top'"
+      class="app-header-box-nav"
+    >
+      <Aside />
     </div>
     <div class="app-header-box-user">
       <el-tooltip
@@ -104,7 +107,7 @@ export default {
     height: 100%;
     border-bottom: 2px solid #eee;
     &-title {
-      width: 300px;
+      width: calc(100% - 200px);
       position: absolute;
       height: 100%;
       left: 0;

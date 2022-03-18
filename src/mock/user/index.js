@@ -25,11 +25,17 @@ export default {
     }
   },
   getUserInfo: (req) => {
-    console.log(req)
+    let params = JSON.parse(req.body)
+    let roleName = null
+    if(params.id === 1) {
+      roleName = 'admin'
+    } else {
+      roleName = 'user'
+    }
     return {
       code: 200,
       data: {
-        roleName: 'admin'
+        roleName: roleName
       }
     }
   }

@@ -4,9 +4,14 @@
       <div class="hamburger" v-if="layout!=='top'">
         <svg-icon :icon-class="iconClass" class-name="hamburger-img" @svgClick="changeCollapse"></svg-icon>
       </div>
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
+      <el-breadcrumb>
+        <el-breadcrumb-item
+          v-for="item in breadcrumbList"
+          :key="item.name"
+          :to="{ path: item.path }"
+        >
+          {{ item.meta.title }}
+        </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div v-if="layout === 'leftTop'" class="nav-tag-list">
@@ -25,6 +30,7 @@ export default {
   },
   data() {
     return {
+      breadcrumbList: [],
       hamburger: require('@/assets/img/hamburger.png')
     }
   },
@@ -34,13 +40,27 @@ export default {
       return this.isCollapse ? 'open' : 'fold'
     }
   },
-  mounted () {},
+  watch: {
+    $route () {
+      this.getBreadcrumb()
+    }
+  },
+  mounted () {
+    this.getBreadcrumb()
+  },
   methods: {
     ...mapActions({
       collapse: 'isCollapseFun'
     }),
     changeCollapse () {
       this.collapse()
+    },
+    getBreadcrumb () {
+      let matched = this.$route.matched
+      if(matched[0].name !== 'Home') {
+        matched = [{ path: '/', meta: { title: '首页'} }].concat(matched)
+      }
+      this.breadcrumbList = matched
     }
   }
 }

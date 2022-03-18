@@ -22,8 +22,9 @@ export const constantRouterMap = [
     path: '/',
     component: Layout, // 需要添加 @babel/plugin-syntax-dynamic-import 插件 不然import报错
     redirect: '/dashboard',
+    name: 'Home',
     meta: {
-      title: 'Dashboard'
+      title: '首页'
     },
     children: [
       {
@@ -32,7 +33,7 @@ export const constantRouterMap = [
         component: () => import('_v/Home/index'),
         meta: {
           icon: 'icon-home',
-          title: '首页'
+          title: 'Dashboard'
         }
       }
     ]
