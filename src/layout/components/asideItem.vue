@@ -95,9 +95,11 @@ export default {
     height: 18px;
     margin-right: 10px;
   }
-  /deep/ .el-menu-item.is-active {
-    background: #409eff;
-    color: #ffffff;
+  .app-aside {
+    .el-menu-item.is-active {
+      background: #409eff;
+      color: #ffffff;
+    }
   }
   .el-menu--collapse .el-submenu .el-submenu__title span {
     height: 0;

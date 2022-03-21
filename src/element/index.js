@@ -37,6 +37,7 @@ import {
   Icon,
   Row,
   Col,
+  Card,
   Upload,
   Loading,
   Breadcrumb,
@@ -86,6 +87,7 @@ Vue.use(Slider)
 Vue.use(Icon)
 Vue.use(Row)
 Vue.use(Col)
+Vue.use(Card)
 Vue.use(Upload)
 Vue.use(Loading)
 Vue.use(Breadcrumb)

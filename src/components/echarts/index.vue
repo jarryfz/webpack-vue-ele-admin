@@ -51,7 +51,13 @@ export default {
   },
   methods: {
     init (options) {
-      echarts.init(this.$el, 'tdTheme').setOption(options || this.options || {}, true)
+      let chart = echarts.init(this.$el, 'tdTheme')
+      chart.setOption(options || this.options || {})
+      window.addEventListener('resize', () => {
+        if (chart) {
+          chart.resize()
+        }
+      })
     }
   }
 }
