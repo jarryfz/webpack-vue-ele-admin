@@ -76,14 +76,14 @@ export const mockRouterMap = [
   { path: '*', redirect: '/404', hidden: true }
 ]
 const originalPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push(location, onResolve, onReject) {
+VueRouter.prototype.push = function push (location, onResolve, onReject) {
   if (onResolve || onReject) { return originalPush.call(this, location, onResolve, onReject) }
   return originalPush.call(this, location).catch((err) => err)
 }
 const createRouter = () => new VueRouter({
   routes: constantRouterMap
 })
-export function resetRouter() {
+export function resetRouter () {
   const newRouter = createRouter()
   router.matcher = newRouter.matcher // reset router
 }

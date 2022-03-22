@@ -4,6 +4,8 @@ const { merge } = require('webpack-merge')
 const common = require('./webpack.common')
 // 导入配置文件
 const config = require('../config/index')
+// 压缩js
+const TerserPlugin = require('terser-webpack-plugin')
 const webpack = require('webpack')
 // 提取css为单独文件
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -15,6 +17,7 @@ const ESLintWebpackPlugin = require('eslint-webpack-plugin')
 
 module.exports = merge(common, {
   mode: 'production',
+  devtool: 'source-map',
   module: {
     rules: [
     ]
@@ -35,7 +38,7 @@ module.exports = merge(common, {
         removeComments: true, // 移除html中的注释
         collapseWhitespace: true // 删除空白符和换行符
       }
-    })
+    }),
     new ESLintWebpackPlugin({
       fix: true,
       extensions: ['js', 'json', 'coffee']
@@ -55,17 +58,23 @@ module.exports = merge(common, {
   optimization: {
     // 代码分离
     splitChunks: {
+      chunks: 'all',
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all'
+          filename: 'vendors.js'
+        },
+        default: { // 所有代码分割快都符合默认值，此时判断priority优先级
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true // 允许在模块完全匹配时重用现有的块，而不是创建新的块。
         }
       }
     },
     // 运行的公用文件，设置为single时会将所有的共享依赖合并成一个文件，当有多个入口文件时需要这样做
     runtimeChunk: 'single',
     minimizer: [
+      new TerserPlugin(),
       new CssMinimizerWebpackPlugin()
     ]
   }

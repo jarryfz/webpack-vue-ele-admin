@@ -2,15 +2,20 @@ const path = require('path')
 const { merge } = require('webpack-merge')
 // 公共webpack配置
 const common = require('./webpack.common')
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
+const smp = new SpeedMeasurePlugin()
 // 导入配置文件
 const config = require('../config/index')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 
-module.exports = merge(common, {
+module.exports = merge(common, smp.wrap({
   mode: 'development',
-  devtool: 'source-map',
+  cache: {
+    type: 'filesystem' // 使用文件缓存(快速提升二次构建速度)
+  },
+  devtool: 'eval-cheap-module-source-map',
   module: {
     rules: [
     ]
@@ -38,7 +43,7 @@ module.exports = merge(common, {
           }
         }
       ]
-    }),
+    })
   ],
   /**
    * 开发服务器devServer：用来自动化（自动编译，自动打开浏览器，自动刷新浏览器）
@@ -54,4 +59,4 @@ module.exports = merge(common, {
     port: 3000,
     open: true
   }
-})
+}))

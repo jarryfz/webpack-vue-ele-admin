@@ -869,7 +869,7 @@ export default {
               // 柱条样式。
               // color: '#2087FE',
               color: 'transparent',
-              borderWidth: 1,
+              borderWidth: 1
               // borderColor: '#2087FE'
             },
             data: onLineSum // 系列中的数据内容数组

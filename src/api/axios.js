@@ -43,7 +43,7 @@ function del (params, url) {
   })
 }
 
-function filterUrl(url) {
+function filterUrl (url) {
   return url.indexOf('?') !== -1 ? `${url}&time=${new Date().getTime()}` : `${url}?time=${new Date().getTime()}`
 }
 
