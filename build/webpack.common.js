@@ -11,6 +11,10 @@ const CompressionPlugin = require('compression-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
+  // echarts改为cdn引入，可以降低打包时间以及体积
+  externals: {
+    'echarts': 'echarts' // 默认是配置引用的库（这里是echarts）暴露出的全局变量
+  },
   entry: path.join(__dirname, '../src/index.js'),
   output: {
     path: path.resolve(__dirname, '../dist'),

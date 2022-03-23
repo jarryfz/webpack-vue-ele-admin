@@ -12,9 +12,9 @@ const webpack = require('webpack')
 
 module.exports = merge(common, smp.wrap({
   mode: 'development',
-  cache: {
-    type: 'filesystem' // 使用文件缓存(快速提升二次构建速度)
-  },
+  // cache: {
+  //   type: 'filesystem' // 使用文件缓存(快速提升二次构建速度)
+  // },
   devtool: 'eval-cheap-module-source-map',
   module: {
     rules: [
