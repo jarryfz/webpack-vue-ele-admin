@@ -36,3 +36,48 @@ export function param2Obj (url) {
       '"}'
   )
 }
+/**
+ * 防抖
+ * @param {function, number} fn
+ * @returns {Function}
+ */
+export function debounce (fn, wait) {
+  const time = wait || 1000
+  let timer = null
+  return function () {
+    let that = this
+    let args = arguments
+    if(timer) {
+      clearTimeout(timer)
+    }
+    timer = setTimeout(function () {
+      timer = null
+      fn.apply(that, args)
+    }, time)
+  }
+}
+/**
+ * 节流
+ * @param {function, number} fn,wait
+ * @returns {Function}
+ */
+export function throttle (fn, wait = 1000) {
+  let last
+  let timer
+  return function () {
+    const th = this
+    const args = arguments
+    const now = +new Date()
+    if (last && now - last < wait) {
+      clearTimeout(timer)
+      timer = setTimeout(function () {
+        last = now
+        fn.apply(th, args)
+      }, wait)
+    } else {
+      last = now
+      fn.apply(th, args)
+    }
+  }
+}
+
